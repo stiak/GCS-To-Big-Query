@@ -79,15 +79,14 @@ function getTable() {
 /**
  * Cloud Function triggered by Cloud Storage when a file is uploaded.
  *
- * @param {object} event The Cloud Functions event.
- * @param {object} event.data A Cloud Storage file object.
- * @param {string} event.data.bucket Name of the Cloud Storage bucket.
- * @param {string} event.data.name Name of the file.
- * @param {string} [event.data.timeDeleted] Time the file was deleted if this is a deletion event.
+ * @param {object} data A Cloud Storage file object.
+ * @param {string} data.bucket Name of the Cloud Storage bucket.
+ * @param {string} data.name Name of the file.
+ * @param {string} [data.timeDeleted] Time the file was deleted if this is a deletion event.
  * @see https://cloud.google.com/storage/docs/json_api/v1/objects#resource
  */
-exports.jsonLoad = function jsonLoad(event) {
-  const file = event.data;
+exports.jsonLoad = function jsonLoad(data) {
+  const file = data;
 
   if (file.resourceState === 'not_exists') {
     // This was a deletion event, we don't want to process this
